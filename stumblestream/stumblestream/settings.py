@@ -25,19 +25,19 @@ SECRET_KEY = 'vev9&g&hox$1yv94%)44i114kve9mccl#kmsuahrn_981i#3ls'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['stumble-stream-env.9piu3qyq3t.us-west-2.elasticbeanstalk.com','www.stumblestream.com','localhost']
-
+ALLOWED_HOSTS = ['stumble-stream-dev-env.68wyeiynip.us-west-2.elasticbeanstalk.com','www.stumblestream.com','localhost']
+  
 
 # Application definition
 
 INSTALLED_APPS = [
+    'streampicker.apps.StreampickerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'streampicker'
 ]
 
 MIDDLEWARE = [
