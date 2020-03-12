@@ -25,13 +25,14 @@ SECRET_KEY = 'vev9&g&hox$1yv94%)44i114kve9mccl#kmsuahrn_981i#3ls'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['stumble-stream-dev-env.68wyeiynip.us-west-2.elasticbeanstalk.com','www.stumblestream.com','localhost']
+ALLOWED_HOSTS = ['stumble-stream-dev.us-west-2.elasticbeanstalk.com','www.stumblestream.com','localhost']
   
 
 # Application definition
 
 INSTALLED_APPS = [
     'streampicker.apps.StreampickerConfig',
+    'registration.apps.RegistrationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'stumblestream.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['static/html'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,13 +75,35 @@ WSGI_APPLICATION = 'stumblestream.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'ebdb',
+            'USER': 'admin',
+            'PASSWORD': 'Il0veJeremy1',
+            'HOST': 'aa24h3eaaa6dtu.cmai6uxx7vzz.us-west-2.rds.amazonaws.com',
+            'PORT': '3306',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -120,3 +143,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# AWS Credentials
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# Celery
+# BROKER_URL = "sqs://%s:%s@" % (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+# BROKER_URL = "sqs://https://sqs.us-west-2.amazonaws.com/876505754848/stumble-stream-celery-queue"
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_DEFAULT_QUEUE = 'stumble-stream-celery-queue'
+# CELERY_RESULT_BACKEND = None # Disabling the results backend
+# BROKER_TRANSPORT_OPTIONS = {
+#     'region': 'us-west-2',
+#     'polling_interval': 20,
+# }
