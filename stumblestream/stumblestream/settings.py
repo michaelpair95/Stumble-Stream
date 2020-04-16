@@ -25,7 +25,7 @@ SECRET_KEY = 'vev9&g&hox$1yv94%)44i114kve9mccl#kmsuahrn_981i#3ls'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['stumble-stream-dev.us-west-2.elasticbeanstalk.com','www.stumblestream.com','localhost']
+ALLOWED_HOSTS = ['TEST-env.eba-ffh73ptm.us-west-2.elasticbeanstalk.com','www.stumblestream.com','localhost']
   
 
 # Application definition
