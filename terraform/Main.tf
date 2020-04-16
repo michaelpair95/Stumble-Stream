@@ -9,13 +9,21 @@ resource "aws_elastic_beanstalk_application" "stumble-stream" {
 resource "aws_elastic_beanstalk_environment" "stumble-stream-env" {
     name                = "stumble-stream-prod"
     application         = "${aws_elastic_beanstalk_application.stumble-stream.name}"
-#    solution_stack_name = "64bit Amazon Linux 2 v0.1.0 running Python 3.7 (BETA)"
-    solution_stack_name = "64bit Amazon Linux 2 v3.0.0 running Python 3.7"
-    
+    # solution_stack_name = "64bit Amazon Linux 2 v0.1.0 running Python 3.7 (BETA)"
+    # solution_stack_name = "64bit Amazon Linux 2 v3.0.0 running Python 3.7"
+    solution_stack_name = "64bit Amazon Linux 2018.03 v2.9.7 running Python 3.6"
+
     setting {
         namespace = "aws:autoscaling:launchconfiguration"
-        name = "IamInstanceProfile"
-        value = "aws-elasticbeanstalk-ec2-role"
+        name      = "IamInstanceProfile"
+        value     = "aws-elasticbeanstalk-ec2-role"
+    }
+    setting {
+        name      = "EnvironmentVariables"
+        namespace = "aws:cloudformation:template:parameter"
+        resource  = ""
+        value = ""
+        # value     = "PYTHONPATH=/var/app/venv/staging-LQM1lest/bin"
     }
 
 }
