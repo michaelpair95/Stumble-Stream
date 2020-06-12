@@ -11,8 +11,3 @@ class registrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
-
-
-    # name = forms.CharField(widget=forms.TextInput(attrs={'class' : 'form-control'}),label='Name')
-    # license = forms.CharField(widget=forms.TextInput(attrs={'class' : 'form-control'}),label='License')
-    # expiration_date = forms.DateField(widget=DateInput, label='Expiration Date')
